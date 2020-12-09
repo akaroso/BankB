@@ -28,10 +28,14 @@ Route::post('Users/create', 'App\Http\Controllers\UserController@createUser');
 
 Route::get('Accounts', 'App\Http\Controllers\AccountController@index');
 Route::get('Accounts/{id}', 'App\Http\Controllers\AccountController@show');
+Route::put('Accounts/changemoney/{id}', 'App\Http\Controllers\AccountController@update');
 
 
 Route::get('Operations', 'App\Http\Controllers\OperationController@index');
 Route::get('Operations/{id}', 'App\Http\Controllers\OperationController@show');
+
+Route::post('GenerateIban', 'App\Http\Controllers\GeneratorController@generateIban');
+
 
 
 

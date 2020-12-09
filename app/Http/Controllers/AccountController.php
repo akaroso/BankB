@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 Use App\Models\Account;
 
+
+
 class AccountController extends Controller
 {
     
@@ -26,8 +28,19 @@ class AccountController extends Controller
     public function update(Request $request, $id)
     {
         $Account = Account::findOrFail($id);
-        $Account->update($request->all());
+        $suma = $request->get('balance');
+        $Account->balance += $suma;
+        $Account->save();
+      //  $Account->update($request->all());
+    
+      //zapis do operacji
 
+       $Account2 = Account::first();
+       $Account2->balance += $suma;
+       $Account2->save();
+    
+        //zapis do operacji
+      
         return $Account;
     }
 

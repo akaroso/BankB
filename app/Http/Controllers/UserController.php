@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 Use App\Models\User;
+Use App\Http\Controllers\GeneratorController;
+
+use function App\Services\generateControlNumber;
+use function App\Services\generateIban;
 
 class UserController extends Controller
 {
+
+
+
     public function index()
     {
         return User::all();
@@ -28,8 +35,13 @@ class UserController extends Controller
      //   $konto = \App\Models\Account::factory()->create();
         $login = User::create($request->all());
         
+    
+
+      $numer =  app('App\Http\Controllers\GeneratorController')->generateIban();
+
+    
         $login->account()->create([
-            'number'=>"12345",
+            'number'=>$numer,
             'balance'=>0
         ]);
         
