@@ -14,7 +14,8 @@ class CreateOperationsTable extends Migration
     public function up()
     {
         Schema::create('operations', function (Blueprint $table) {
-            $table->id();   
+            $table->id();  
+            $table->bigInteger('account_id')->unsigned()->nullable();  
             $table->string('type');       
             $table->float('amount');
             $table->string('status');          

@@ -18,4 +18,10 @@ class Account extends Model
     {
         return $this->belongsTo('App\Models\User');        
     }
+
+    public function operation()
+    {
+    return $this->hasMany('App\Models\operation');
+    }
+
 }

@@ -36,7 +36,7 @@ class UserController extends Controller
         $login = User::create($request->all());
         
     
-
+      
       $numer =  app('App\Http\Controllers\GeneratorController')->generateIban();
 
     

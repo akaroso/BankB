@@ -29,6 +29,7 @@ Route::post('Users/create', 'App\Http\Controllers\UserController@createUser');
 Route::get('Accounts', 'App\Http\Controllers\AccountController@index');
 Route::get('Accounts/{id}', 'App\Http\Controllers\AccountController@show');
 Route::put('Accounts/changemoney/{id}', 'App\Http\Controllers\AccountController@update');
+Route::put('Accounts/internaltransfer/{id}', 'App\Http\Controllers\AccountController@internaltransfer');
 
 
 Route::get('Operations', 'App\Http\Controllers\OperationController@index');

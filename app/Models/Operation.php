@@ -9,11 +9,17 @@ class Operation extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+   
 
     protected $fillable = [
         'type',
         'amount',
         'status',        
     ];
+
+
+    public function account()
+    {
+        return $this->belongsTo('App\Models\Account');        
+    }
 }

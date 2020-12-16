@@ -1,18 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-Use App\Models\User;
+Use App\Models\Operation;
 use Illuminate\Http\Request;
 
 class OperationController extends Controller
 {
     public function index()
     {
-        return User::all();
+        return Operation::all();
     }
 
     public function show($id)
     {
-        return User::find($id);
+        return Operation::find($id);
     }
 }
