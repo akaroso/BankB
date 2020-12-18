@@ -23,8 +23,6 @@ Route::get('Users/{id}', 'App\Http\Controllers\UserController@show');
 Route::post('Users', 'App\Http\Controllers\UserController@store');
 Route::post('Users/create', 'App\Http\Controllers\UserController@createUser');
 
-//Route::post('produkts/producent/{id}',[ProduktController::class, 'saveforcustromer']);
-
 
 Route::get('Accounts', 'App\Http\Controllers\AccountController@index');
 Route::get('Accounts/{id}', 'App\Http\Controllers\AccountController@show');
@@ -36,7 +34,4 @@ Route::get('Operations', 'App\Http\Controllers\OperationController@index');
 Route::get('Operations/{id}', 'App\Http\Controllers\OperationController@show');
 
 Route::post('GenerateIban', 'App\Http\Controllers\GeneratorController@generateIban');
-
-
-
 
