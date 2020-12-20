@@ -6,28 +6,15 @@ use Illuminate\Http\Request;
 Use App\Models\Account;
 Use App\Models\Operation;
 
-
-
-class AccountController extends Controller
+class MoneyWebController extends Controller
 {
-    
-    public function index()
-    {
-        return Account::all();
-    }
 
-    public function show($id)
-    {
-        return Account::find($id);
-    }
 
-    public function store(Request $request)
-    {
-        return Account::create($request->all());
-    }
+    public function depositMoney(Request $request )
 
-    public function update(Request $request, $id)
     {
+        $id = $request->get('id');
+
         $Account = Account::findOrFail($id);
         $suma = $request->get('balance');
         $Account->balance += $suma;
@@ -49,15 +36,20 @@ class AccountController extends Controller
             'status'=>'Processed'
             
         ]);
-      
-        return $Account;
+
+        return redirect('/dashboard')->with('success', 'Przelew wykonany!');
     }
 
+    public function internalTransfer(Request $request)
 
-    public function internaltransfer(Request $request, $id)
     {
-      
-
+        $id = $request->get('id');
+        
+        $request->validate([
+            'balance'=>'required',
+            'acc_number'=>'required',
+        ]);
+        
         $accnumber = $request->get('acc_number');
 
         #pobranie z konta nadawcy
@@ -88,17 +80,16 @@ class AccountController extends Controller
             'amount'=>$suma,
             'status'=>'Processed'
         ]);
-      
-        return $Account;
+        
+
+        return redirect('/dashboard')->with('success', 'Przelew wykonany!');
     }
 
+    public function externalTransfer(Request $request)
 
-    public function delete(Request $request, $id)
     {
-        $Account = Account::findOrFail($id);
-        $Account->delete();
-
-        return 204;
+        $id = $request->get('id');
+        
+        return redirect('/dashboard')->with('success', 'Przelew wykonany!');
     }
-
 }
