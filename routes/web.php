@@ -12,11 +12,28 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::POST('addMoney/post', 'App\Http\Controllers\MoneyWebController@depositMoney')->middleware(['auth'])->name('transfer.depositMoney');
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/transfer', function () {
+    return view('transfer');
+})->middleware(['auth'])->name('transfer');
+
+Route::patch('transfer/post', 'App\Http\Controllers\MoneyWebController@internalTransfer')->middleware(['auth'])->name('transfer.internalTransfer');
+
+Route::get('/addMoney', function () {
+    return view('addMoney');
+})->middleware(['auth'])->name('addMoney');
+
+
+
+Route::resource('users', 'App\Http\Controllers\UserController');
+
+require __DIR__.'/auth.php';

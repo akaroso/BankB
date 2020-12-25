@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 Use App\Models\User;
 Use App\Http\Controllers\GeneratorController;
+use App\Models\Account;
+use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
 use function App\Services\generateControlNumber;
 use function App\Services\generateIban;
@@ -52,7 +55,7 @@ class UserController extends Controller
 
 
 
-
+    
   //  public function saveforcustromer(Request $request, $id)
   //  {
     //    $custromer = Kontrahent::firstWhere('id',$id);
