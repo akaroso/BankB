@@ -80,9 +80,9 @@ public function generateIban() : string
     return "PL".$controlSum.$iban;
 }
 
-function validateNumber(){
+function validateNumber($number ){
 
-    $number = $this->generateIban();
+    
     $p = ord(substr($number,0, 1)) -55;
     $l = ord(substr($number,1, 2)) -55;
     $part1 = substr($number,2, 2);

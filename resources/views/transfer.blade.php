@@ -13,7 +13,7 @@
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
 
-        <div>{{Auth::user()->Account->id}}</div>
+        <div></div>
 
 
         @php
@@ -21,7 +21,7 @@
         $lastid = null;
         $rowclass = Auth::user()->Account->id;
         @endphp
-        <div>{{$rowclass}}</div>
+        
         <form method="POST" action="{{route('transfer.internalTransfer','id=')}}{{$rowclass}}">
             @csrf
             @method('PATCH')

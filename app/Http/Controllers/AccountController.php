@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-Use App\Models\Account;
-Use App\Models\Operation;
+use App\Models\Account;
+use App\Models\Operation;
 
 
 
 class AccountController extends Controller
 {
-    
+
     public function index()
     {
         return Account::all();
@@ -29,34 +29,34 @@ class AccountController extends Controller
     public function update(Request $request, $id)
     {
         $Account = Account::findOrFail($id);
-        $suma = $request->get('balance');
+        $suma = $Account->get('balance');
         $Account->balance += $suma;
         $Account->save();
-      //  $Account->update($request->all());
-    
-      //zapis do operacji po stronie nadawcy
+        //  $Account->update($request->all());
 
-      //wplyw na konto glowne
-       $Account2 = Account::first();
-       $Account2->balance += $suma;
-       $Account2->save();
-    
+        //zapis do operacji po stronie nadawcy
+
+        //wplyw na konto glowne
+        $Account2 = Account::first();
+        $Account2->balance += $suma;
+        $Account2->save();
+
         //zapis do operacji po stronie odbiorcy
-        
+
         $Account->operation()->create([
-            'type'=>'Deposit',
-            'amount'=>$suma,
-            'status'=>'Processed'
-            
+            'type' => 'Deposit',
+            'amount' => $suma,
+            'status' => 'Processed'
+
         ]);
-      
+
         return $Account;
     }
 
 
     public function internaltransfer(Request $request, $id)
     {
-      
+
 
         $accnumber = $request->get('acc_number');
 
@@ -69,26 +69,26 @@ class AccountController extends Controller
         //zapis do operacji po stronie nadawcy
 
         $Account->operation()->create([
-            'type'=>'Expanse',
-            'amount'=>-$suma,
-            'status'=>'Processed',                  
+            'type' => 'Expanse',
+            'amount' => -$suma,
+            'status' => 'Processed',
         ]);
-      
 
-        $Account2 = Account::where('number',$accnumber)->first();
+
+        $Account2 = Account::where('number', $accnumber)->first();
         $suma = $request->get('balance');
         $Account2->balance += $suma;
         $Account2->save();
-       
-     
+
+
         //zapis do operacji po stronie odbiorcy
-        
+
         $Account2->operation()->create([
-            'type'=>'Income',
-            'amount'=>$suma,
-            'status'=>'Processed'
+            'type' => 'Income',
+            'amount' => $suma,
+            'status' => 'Processed'
         ]);
-      
+
         return $Account;
     }
 
@@ -100,5 +100,4 @@ class AccountController extends Controller
 
         return 204;
     }
-
 }
