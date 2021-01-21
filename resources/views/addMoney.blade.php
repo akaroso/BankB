@@ -24,7 +24,7 @@
                                     <div></div>
         <form method="POST" action="{{route('transfer.depositMoney','id=')}}{{$rowclass}}">
             @csrf
-            @method('PATCH') 
+             
             <!-- Name -->
             <div>
             

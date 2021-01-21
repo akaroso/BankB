@@ -35,3 +35,6 @@ Route::get('Operations/{id}', 'App\Http\Controllers\OperationController@show');
 
 Route::post('GenerateIban', 'App\Http\Controllers\GeneratorController@generateIban');
 
+Route::get('Transfers', 'App\Http\Controllers\TransferController@index');  //funkcja wysylajaca przelewy
+Route::get('SumaPrzelewow', 'App\Http\Controllers\TransferController@bankLoad');
+

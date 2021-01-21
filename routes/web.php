@@ -26,7 +26,7 @@ Route::get('/transfer', function () {
     return view('transfer');
 })->middleware(['auth'])->name('transfer');
 
-Route::patch('transfer/post', 'App\Http\Controllers\MoneyWebController@internalTransfer')->middleware(['auth'])->name('transfer.internalTransfer');
+Route::patch('transfer/post', 'App\Http\Controllers\MoneyWebController@checkTransferType')->middleware(['auth'])->name('transfer.internalTransfer');
 
 Route::get('/addMoney', function () {
     return view('addMoney');
