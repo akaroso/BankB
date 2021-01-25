@@ -16,9 +16,9 @@ class PaymentStorage extends Model
         'PaymentSum'               
     ];
 
-    public function payment()
+    public function payments()
     {
-    return $this->hasMany('App\Models\payment');
+    return $this->hasMany('App\Models\Payment');
     }
 
 

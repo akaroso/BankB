@@ -21,7 +21,8 @@ class Payment extends Model
 
     public function paymentStorage()
     {
-        return $this->belongsTo('App\Models\PaymentStorage');        
+        return $this->belongsTo('App\Models\PaymentStorage')
+        ;        
     }
 
 }

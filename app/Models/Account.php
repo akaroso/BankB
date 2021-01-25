@@ -21,7 +21,7 @@ class Account extends Model
 
     public function operation()
     {
-    return $this->hasMany('App\Models\operation');
+    return $this->hasMany('App\Models\Operation');
     }
 
 }

@@ -62,27 +62,14 @@ public function generateIbanControlNumber(string $iban) : string
     return 98-$mod;
 }
 
-public function generateIban() : string
-{
-    $number = env('BANK_NUMBER');
-    
-    $iban = $this->generateControlNumberWithNumber($number). str_pad(mt_rand(0,99999999),8,'0',STR_PAD_LEFT) . str_pad(mt_rand(0,99999999),8,'0',STR_PAD_LEFT);
-
-    $p = ord("P") - 55;
-    $l = ord("L") - 55;
-
-    $fullIban = $iban.$p.$l."00";
-
-    $controlSum = $this->generateIbanControlNumber($fullIban);
-     
-    
-   // return $controlSum;
-    return "PL".$controlSum.$iban;
-}
 
 function validateNumber($number ){
 
-    
+    if (strlen($number)!=29) {
+    } else{
+        return false;
+    }
+
     $p = ord(substr($number,0, 1)) -55;
     $l = ord(substr($number,1, 2)) -55;
     $part1 = substr($number,2, 2);
@@ -105,6 +92,34 @@ function validateNumber($number ){
     }
 
 }
+
+public function generateIban() : string
+{
+    $number = env('BANK_NUMBER');
+    
+    $iban = $this->generateControlNumberWithNumber($number). str_pad(mt_rand(0,99999999),8,'0',STR_PAD_LEFT) . str_pad(mt_rand(0,99999999),8,'0',STR_PAD_LEFT);
+
+    $p = ord("P") - 55;
+    $l = ord("L") - 55;
+
+    $fullIban = $iban.$p.$l."00";
+
+    $controlSum = $this->generateIbanControlNumber($fullIban);
+     
+    $wygenerowanyiban = "PL".$controlSum.$iban;
+
+    if (app('App\Http\Controllers\GeneratorController')->validateNumber($wygenerowanyiban)) {
+    } else {
+       return $this->generateIban();
+    }
+
+
+   // return $controlSum;
+    return $wygenerowanyiban;
+}
+
+
+
 
 public function insideCheck($number)
 {

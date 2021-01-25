@@ -49,9 +49,23 @@
                 <x-button class="ml-4">
                   <a href="{{route('addMoney')}}">  {{ __('Deposit money') }}  </a>
                 </x-button>
+                    
+                    @if (Auth::user()->id == 1)
+                    
+                    <p class="p-8"> 
+                        <x-button class="ml-4">
+                        <a href="/api/sendSession/">  {{ __('Send Transfers') }}  </a>
+                        </x-button>
+
+                        <x-button class="ml-4">
+                        <a href="/api/Accounts/">  {{ __('Show Accounts') }}  </a>
+                        </x-button>
+                        </p>
+                    @endif
+                    
                     </div>
 
-
+                   
                     <div class="md:px-32 py-8 w-full ">
                         <div class="shadow overflow-hidden rounded border-b border-gray-200 ">
                             <table class="min-w-full bg-white ">

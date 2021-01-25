@@ -13,7 +13,7 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('Payments', function (Blueprint $table) {
             $table->id();
             $table->string('DebitedAccountNumber');
             $table->string('DebitedNameAndAddress'); 
@@ -22,6 +22,7 @@ class CreatePaymentsTable extends Migration
             $table->string('Title');        
             $table->float('Amount');
             $table->bigInteger('payment_storage_id')->unsigned()->nullable();
+            $table->foreign('payment_storage_id')->references('id')->on('payment_storages')->onDelete('cascade');
 
      //       $table->timestamps();
         });
@@ -34,6 +35,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('Payments');
     }
 }
