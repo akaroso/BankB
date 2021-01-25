@@ -27,14 +27,24 @@
             @method('PATCH')
             <!-- Name -->
             <div>
-                <x-label for="balance" :value="__('Ammount')" />
-
-                <x-input id="balance" class="block mt-1 w-full" type="text" name="balance" :value="old('balance')" required autofocus />
-            </div>
-            <div>
                 <x-label for="acc_number" :value="__('Bank Number')" />
 
                 <x-input id="acc_number" class="block mt-1 w-full" type="text" name="acc_number" :value="old('acc_number')" required autofocus />
+            </div>
+            <div>
+                <x-label for="Title" :value="__('Title')" />
+
+                <x-input id="Title" class="block mt-1 w-full" type="text" name="Title" :value="old('Title')" required autofocus />
+            </div>
+            <div>
+                <x-label for="DebitedNameAndAddress" :value="__('Name And Addres')" />
+
+                <x-input id="DebitedNameAndAddress" class="block mt-1 w-full" type="text" name="DebitedNameAndAddress" :value="old('DebitedNameAndAddress')" required autofocus />
+            </div>
+            <div>
+                <x-label for="balance" :value="__('Ammount')" />
+
+                <x-input id="balance" class="block mt-1 w-full" type="text" name="balance" :value="old('balance')" required autofocus />
             </div>
 
 

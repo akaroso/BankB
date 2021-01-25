@@ -96,6 +96,28 @@ class TransferController extends Controller
 
     public function bankSave()
     {
+
+        DB::transaction(function () {
+            $transfers = PaymentStorage::with('Payments')->get();
+
+            $suma = 0;
+            foreach ($transfers as $transfer) {
+                $suma += $transfer->PaymentSum;
+            }
+
+            $Account2 = Account::first();
+            $Account2->balance += $suma;
+            $Account2->save();
+
+            $Account2->operation()->create([
+                'type' => 'Sesion in',
+                'amount' => +$suma,
+                'status' => 'Finalized'
+            ]);
+        });
+
+
+
         DB::transaction(function () {
             $transfers = Payment::all();
             foreach ($transfers as $transfer) {
@@ -103,7 +125,14 @@ class TransferController extends Controller
                 $money = $transfer->Amount;
 
                 //tutaj dodac ifa ktory przepuszcza dalej pomimo braku znalezienia konta
-                $acc = Account::where('number', $accnumber)->first();
+                if($acc = Account::where('number', $accnumber)->first())
+                {}
+                else {
+                    $acc = Account::create([
+                        'number' => $accnumber,
+                        'balance' => 0,
+                    ]);
+                }
                 $acc->balance += $money;
                 $acc->save();
 
@@ -113,17 +142,7 @@ class TransferController extends Controller
                     'type' => 'External transfer',
                     'amount' => $money,
                     'status' => 'Finalized'
-                ]);
-
-                $Account2 = Account::first();
-                $Account2->balance += $money;
-                $Account2->save();
-
-                $Account2->operation()->create([
-                    'type' => 'Sesion in',
-                    'amount' => $money,
-                    'status' => 'Finalized'
-                ]);
+                ]);             
             }
         });
         return $this->deleteSendedRecords();
@@ -138,6 +157,7 @@ class TransferController extends Controller
         $this->session();
         $this->deleteSendedRecords();
         $this->bankSave();
+        return redirect('/dashboard')->with('success', 'Sesja wykonana!');
         
     }
 

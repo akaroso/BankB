@@ -8,6 +8,7 @@ use App\Models\Operation;
 use App\Models\PaymentStorage;
 use App\Models\Payment;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 use Exception;
 
 class MoneyWebController extends Controller
@@ -105,13 +106,19 @@ class MoneyWebController extends Controller
     {
         $id = $request->get('id');
         $accnumber = $request->get('acc_number');
+        $title = $request->get('Title');
+        $nameandadress = $request->get('DebitedNameAndAddress');
 
-        DB::transaction(function () use ($request, $id, $accnumber) {
+        DB::transaction(function () use ($request, $id, $accnumber, $title,$nameandadress ) {
 
 
 
             #pobranie z konta nadawcy
             $Account = Account::findOrFail($id);
+            $User = User::findOrFail($id);
+            $name = $User->name;
+            $addres = $User->address;
+            $nameandaddres = $name.";".$addres;
             $suma = $request->get('balance');
             $Account->balance -= $suma;
             $Account->save();
@@ -150,10 +157,10 @@ class MoneyWebController extends Controller
             //przypisujemy mu wartosci  
             $paymentStorage->Payments()->create([
                 'DebitedAccountNumber' => $Account->number,
-                'DebitedNameAndAddress' => 'placeholder;placeholder',
+                'DebitedNameAndAddress' => $nameandaddres,
                 'CreditedAccountNumber' => $accnumber,
-                'CreditedNameAndAddress' => 'placeholder;placeholder',
-                'Title' => 'Tytul przelewu',
+                'CreditedNameAndAddress' => $nameandadress,
+                'Title' => $title,
                 'Amount' => $suma,
             ]);
 

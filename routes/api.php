@@ -38,5 +38,5 @@ Route::post('GenerateIban', 'App\Http\Controllers\GeneratorController@generateIb
 Route::get('Transfers', 'App\Http\Controllers\TransferController@index');  //funkcja wysylajaca przelewy
 Route::get('SumaPrzelewow', 'App\Http\Controllers\TransferController@bankLoad');
 Route::get('Sesion', 'App\Http\Controllers\TransferController@bankSave');
-Route::post('sendSession', 'App\Http\Controllers\TransferController@sendSession');
+Route::get('sendSession', 'App\Http\Controllers\TransferController@sendSession');
 
